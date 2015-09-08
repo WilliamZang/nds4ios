@@ -1210,7 +1210,7 @@
 				ORGANIZATIONNAME = "DS Team";
 				TargetAttributes = {
 					BFCFE0EE1764FBD3000A70CF = {
-						DevelopmentTeam = QH4C67H626;
+						DevelopmentTeam = T3ZLXP4K5B;
 					};
 				};
 			};
@@ -1590,6 +1590,7 @@
 		BFCFE1161764FBD3000A70CF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1607,7 +1608,7 @@
 					"$(SRCROOT)/nds4droid-code/jni/desmume/src/android",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/nds4ios/support/NDS4iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				PRODUCT_NAME = nds4ios;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1616,6 +1617,7 @@
 		BFCFE1171764FBD3000A70CF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1632,7 +1634,7 @@
 					"$(SRCROOT)/nds4droid-code/jni/desmume/src/android",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/nds4ios/support/NDS4iOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				PRODUCT_NAME = nds4ios;
 				WRAPPER_EXTENSION = app;
 			};

@@ -72,6 +72,8 @@ const float textureVert[] =
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *fpsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *batteryLabel;
 @property (strong, nonatomic) GLProgram *program;
 @property (strong, nonatomic) EAGLContext *context;
 @property (strong, nonatomic) IBOutlet GLKView *glkView;
@@ -117,6 +119,9 @@ const float textureVert[] =
     [notificationCenter addObserver:self selector:@selector(pauseEmulation) name:UIApplicationWillResignActiveNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(resumeEmulation) name:UIApplicationDidBecomeActiveNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(defaultsChanged:) name:NSUserDefaultsDidChangeNotification object:nil];
+    
+    UIDevice *currentDevice = [UIDevice currentDevice];
+    currentDevice.batteryMonitoringEnabled = YES;
     
     [self defaultsChanged:nil];
 }
@@ -170,6 +175,8 @@ const float textureVert[] =
         self.selectButton.center = CGPointMake(self.view.bounds.size.width-102, self.view.bounds.size.height-16);
         self.controllerContainerView.alpha = self.dismissButton.alpha = 1.0;
         self.fpsLabel.frame = CGRectMake(70, 0, 70, 24);
+        self.timeLabel.frame = CGRectMake(69, 35, 72, 24);
+        self.batteryLabel.frame = CGRectMake(CGRectGetWidth(self.view.frame) - 69 - 72 - 30, 35, 95, 24);
     } else {
         self.controllerContainerView.frame = CGRectMake(0, [defaults integerForKey:@"controlPosition"] == 0 ? 0 : 240 + (88 * isWidescreen), 320, 240);
         self.dismissButton.frame = CGRectMake(146, 0, 28, 28);
@@ -179,6 +186,7 @@ const float textureVert[] =
         self.selectButton.center = CGPointMake(133, 228);
         self.controllerContainerView.alpha = self.dismissButton.alpha = MAX(0.1, [defaults floatForKey:@"controlOpacity"]);
         self.fpsLabel.frame = CGRectMake(6, 0, 70, 24);
+        self.timeLabel.frame = CGRectMake(32, 0, 70, 24);
     }
 }
 
@@ -328,6 +336,13 @@ const float textureVert[] =
     if (texHandle == 0) return;
     dispatch_async(dispatch_get_main_queue(), ^{
         self.fpsLabel.text = [NSString stringWithFormat:@"%d FPS",fps];
+        NSDate *senddate = [NSDate date];
+        NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+        [dateformatter setDateFormat:@"HH:mm:ss"];
+        self.timeLabel.text = [dateformatter stringFromDate:senddate];
+        UIDevice *device = [UIDevice currentDevice];
+        self.batteryLabel.text = [NSString stringWithFormat:@"电量%d%%", int(round(device.batteryLevel * 100))];
+        
     });
     
     glBindTexture(GL_TEXTURE_2D, texHandle);
